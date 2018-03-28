@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <script data-require="angular.js@1.6.0" data-semver="1.6.0" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.6.0/angular.js"></script>
+    <script src="dist/easytimer.min.js"></script>
+    <link rel="stylesheet" href="dist/examples.min.css" />
+    <link rel="stylesheet" href="style.css" />
+    <script src="script.js"></script>
+
+  </head>
+
+  <body ng-app="myApp" ng-controller="myCtrl">
+    <div class="row">
+      <div class="col-sm-6">
+          <div >
+            <h2 class="float-right">Addition 2.0</h2>
+          </div>
+      </div>
+      <div id="chronoExample" class="col-sm-5 panel">
+            <div class="float-right panel-body">
+                <div class="values text-center text-muted"><h4>00:00:00</h4></div>
+                <div>
+                    <button class="startButton btn btn-success btn-sm">Start</button>
+                    <button class="pauseButton btn btn-primary btn-sm" >Pause</button>
+                    <button class="stopButton btn btn-danger btn-sm">Stop</button>
+                    <button class="resetButton btn btn-warning btn-sm">Reset</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-12 table-responsive">
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th></th>
+              <th ng-repeat="i in [0,1,2,3,4,5,6,7,8,9]" class="green-background">
+                            {{columnValues[i]}}
+                </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="i in [0,1,2,3,4,5,6,7,8,9]">
+              <td class="green-background">
+                            <strong>{{rowValues[i]}}</strong>
+                </td>
+              <td ng-repeat="j in [0,1,2,3,4,5,6,7,8,9]">
+                <div class="form-group" ng-class="{'has-error' : isCorrectArray[i+''+j] != undefined && isCorrectArray[i+''+j] == false}">
+                  <input class="form-control" type="text" ng-blur="valueChanged(i,j)" ng-model="values[i+''+j]" placeholder="{{rowValues[i]}}+{{columnValues[j]}}" size="4" />
+                </div>
+              </td>
+              <td>
+                  <div class="form-group" ng-class="{'has-error' : isCorrectArray[i+'10'] != undefined && isCorrectArray[i+'10'] == false}">
+                    <input class="form-control" type="text" ng-blur="rowValueChanged(i)" ng-model="rowsAnswers[i]" size="4" />
+                </div>
+              </td>
+            </tr>
+            <tr>
+               <td></td>
+               <td ng-repeat="i in [0,1,2,3,4,5,6,7,8,9]">
+                  <div class="form-group" ng-class="{'has-error' : isCorrectArray['10'+i] != undefined && isCorrectArray['10'+i] == false}">
+                    <input class="form-control" type="text" ng-blur="columnValueChanged(i)" ng-model="columnAnswers[i]" size="4" />
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </body>
+  <script src="timerCode.js"></script>
+</html>
