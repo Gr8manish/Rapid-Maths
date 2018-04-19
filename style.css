@@ -6,3 +6,15 @@
 .float-right{
     float : right;
 }
+
+.text-align-center{
+  text-align : center;
+}
+
+.margin-bottom-0{
+  margin-bottom: 0px;
+}
+
+.vertical-align-middle{
+  vertical-align: middle !important;
+}
