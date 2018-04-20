@@ -1,4 +1,4 @@
-angular.module("myApp").controller("myCtrl",function($scope){
+angular.module("myApp").controller("myCtrl",function($rootScope,$scope,ngDialog){
 
       $scope.startResumeButtonText = "Start";
 
@@ -33,11 +33,15 @@ angular.module("myApp").controller("myCtrl",function($scope){
       //This function will be called when user will change value in the input field
       // And set $scope.isCorrectArray[i+""+j] value.
       $scope.valueChanged = function(i,j){
-       if($scope.values[i+""+j] == undefined || $scope.values[i+""+j] == ($scope.rowValues[i] + $scope.columnValues[j])){
-           $scope.isCorrectArray[i+""+j] = true;
-       }else{
-           $scope.isCorrectArray[i+""+j] = false;
-       }
+            if($scope.values[i+""+j] == undefined){
+                return;
+            }
+
+            if( $scope.values[i+""+j] == ($scope.rowValues[i] + $scope.columnValues[j])){
+               $scope.isCorrectArray[i+""+j] = true;
+            }else{
+               $scope.isCorrectArray[i+""+j] = false;
+            }
       }
 
       // Called when user change value in Total row field.
@@ -103,6 +107,28 @@ angular.module("myApp").controller("myCtrl",function($scope){
             timer.pause();
         });
         $('#stopWatch .stopButton').click(function () {
+            $scope.noOfCorrectAns_TwoNumbers = 0;
+            $scope.noOfCorrectAns_Row = 0;
+            $scope.noOfCorrectAns_Column = 0;
+            $scope.noOfCorrectAns_Total = 0;
+
+            // Counting no of correct answers
+            for(var i=0;i<11;i++){
+                for(var j=0;j<11;j++){
+                    if($scope.isCorrectArray[i+""+j]){
+                        if(i==10){
+                            $scope.noOfCorrectAns_Column++;
+                        }else if(j==10){
+                            $scope.noOfCorrectAns_Row++;
+                        }else{
+                            $scope.noOfCorrectAns_TwoNumbers++;
+                        }
+                    }
+                }
+            }
+            $scope.noOfCorrectAns_Total = $scope.noOfCorrectAns_TwoNumbers+$scope.noOfCorrectAns_Row+$scope.noOfCorrectAns_Column;
+
+            // Resetting all the values
             $scope.isStartButtonDisabled = false;
             $scope.isPauseButtonDisabled = true;
             $scope.isStopButtonDisabled = true;
@@ -113,6 +139,7 @@ angular.module("myApp").controller("myCtrl",function($scope){
             $scope.isCorrectArray = [];
             $scope.$apply();
             timer.stop();
+            $scope.onStopButtonClicked();
         });
 
         timer.addEventListener('secondsUpdated', function (e) {
@@ -124,4 +151,15 @@ angular.module("myApp").controller("myCtrl",function($scope){
       }
 
       $scope.initializeTimer();
+
+
+      // Function to show result dialog
+      $scope.onStopButtonClicked = function(){
+        ngDialog.open({ template: 'firstDialogId', controller: 'myCtrl', data: {noOfCorrectAns_TwoNumbers: $scope.noOfCorrectAns_TwoNumbers,
+            noOfCorrectAns_Row: $scope.noOfCorrectAns_Row,
+            noOfCorrectAns_Total: $scope.noOfCorrectAns_Total,
+            noOfCorrectAns_Column: $scope.noOfCorrectAns_Column} });
+      }
+
+
   });

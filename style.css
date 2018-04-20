@@ -18,3 +18,12 @@
 .vertical-align-middle{
   vertical-align: middle !important;
 }
+
+.horizontal-line{
+  border-bottom: 1px solid cornflowerblue;
+  padding-bottom: 8px;
+}
+
+.font-cursive{
+  font-family: fantasy;
+}
