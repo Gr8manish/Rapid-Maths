@@ -21,11 +21,15 @@ angular.module("myApp").controller("myCtrl",function($rootScope,$scope,ngDialog)
       $scope.isPauseButtonDisabled = true;
       $scope.isStopButtonDisabled = true;
 
-      // Generating random values for row and column headers
-      for(var l=0;l<10;l++){
-        $scope.columnValues[l] = Math.floor(Math.random()*90)+10;
-        $scope.rowValues[l] = Math.floor(Math.random()*90)+10;
+      $scope.generateRandomValuesForRowAndColumns = function(){
+        // Generating random values for row and column headers
+        for(var l=0;l<10;l++){
+          $scope.columnValues[l] = Math.floor(Math.random()*90)+10;
+          $scope.rowValues[l] = Math.floor(Math.random()*90)+10;
+        }
       }
+
+      $scope.generateRandomValuesForRowAndColumns();
 
       // $scope.values[i+""+j] will contain value entered by user in input field corresponding to i th and j th column.
       $scope.values = [];
@@ -91,22 +95,20 @@ angular.module("myApp").controller("myCtrl",function($rootScope,$scope,ngDialog)
         var timer = new Timer();
 
         //Various timer button listeners
-        $('#stopWatch .startButton').click(function () {
+        $scope.onStartButtonClick = function () {
             $scope.isStartButtonDisabled = true;
             $scope.isPauseButtonDisabled = false;
             $scope.isStopButtonDisabled = false;
-            $scope.$apply();
             timer.start();
-        });
-        $('#stopWatch .pauseButton').click(function () {
+        };
+        $scope.onPauseButtonClick = function () {
             $scope.isStartButtonDisabled = false;
             $scope.isPauseButtonDisabled = true;
             $scope.isStopButtonDisabled = false;
             $scope.startResumeButtonText = "Resume";
-            $scope.$apply();
             timer.pause();
-        });
-        $('#stopWatch .stopButton').click(function () {
+        };
+        $scope.onStopButtonClick = function () {
             $scope.noOfCorrectAns_TwoNumbers = 0;
             $scope.noOfCorrectAns_Row = 0;
             $scope.noOfCorrectAns_Column = 0;
@@ -137,10 +139,11 @@ angular.module("myApp").controller("myCtrl",function($rootScope,$scope,ngDialog)
             $scope.rowsAnswers = [];
             $scope.columnAnswers = [];
             $scope.isCorrectArray = [];
-            $scope.$apply();
             timer.stop();
+
+            //Show result dialog
             $scope.onStopButtonClicked();
-        });
+        };
 
         timer.addEventListener('secondsUpdated', function (e) {
             $('#stopWatch .values').html(timer.getTimeValues().toString());
@@ -159,6 +162,13 @@ angular.module("myApp").controller("myCtrl",function($rootScope,$scope,ngDialog)
             noOfCorrectAns_Row: $scope.noOfCorrectAns_Row,
             noOfCorrectAns_Total: $scope.noOfCorrectAns_Total,
             noOfCorrectAns_Column: $scope.noOfCorrectAns_Column} });
+        //Generate new Random values
+        $scope.generateRandomValuesForRowAndColumns();
+      }
+
+      $scope.closeDialog = function(){
+        $scope.generateRandomValuesForRowAndColumns();
+        ngDialog.closeAll();
       }
 
 
