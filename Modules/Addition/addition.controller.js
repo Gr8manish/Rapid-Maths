@@ -37,6 +37,11 @@ angular.module("addition").controller("additionCtrl",function($rootScope,$scope,
       //This function will be called when user will change value in the input field
       // And set $scope.isCorrectArray[i+""+j] value.
       $scope.valueChanged = function(i,j){
+
+            //Checking row and column totals when user change any value in the table
+            $scope.rowValueChanged(i);
+            $scope.columnValueChanged(j);
+
             if($scope.values[i+""+j] == undefined){
                 return;
             }
