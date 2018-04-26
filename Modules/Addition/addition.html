@@ -14,9 +14,9 @@
     <!-- Timer text and buttons  -->
     <div id="stopWatch" class="col-sm-5 panel">
           <div class="float-right panel-body">
-              <div class="values text-center text-muted"><h4>00:00:00</h4></div>
+              <div class="values text-center text-muted">00:00:00</div>
               <div>
-                  <button ng-disabled="isStartButtonDisabled" class="startButton btn btn-success btn-sm" ng-click="onStartButtonClick()">{{startResumeButtonText}}</button>
+                  <button ng-disabled="isStartButtonDisabled" class="startButton btn btn-success btn-sm " ng-click="onStartButtonClick()">{{startResumeButtonText}}</button>
                   <button ng-disabled="isPauseButtonDisabled" class="pauseButton btn btn-primary btn-sm" ng-click="onPauseButtonClick()">Pause</button>
                   <button ng-disabled="isStopButtonDisabled" class="stopButton btn btn-danger btn-sm" ng-click="onStopButtonClick()">Stop</button>
               </div>
@@ -55,7 +55,7 @@
             <!-- Input fields for rows total -->
             <td>
                 <div class="form-group margin-bottom-0" ng-class="{'has-error' : isCorrectArray[i+'10'] != undefined && isCorrectArray[i+'10'] == false}">
-                  <input ng-disabled="isDisabled['r'+i]==undefined || isDisabled['r'+i]" class="form-control" type="text" ng-blur="rowValueChanged(i)" ng-model="rowsAnswers[i]" size="4" />
+                  <input ng-disabled="!isStartButtonDisabled || isDisabled['r'+i]==undefined || isDisabled['r'+i]" class="form-control" type="text" ng-blur="rowValueChanged(i)" ng-model="rowsAnswers[i]" size="4" />
               </div>
             </td>
           </tr>
@@ -65,7 +65,7 @@
              <td class="green-background text-align-center vertical-align-middle"> <strong>Total</strong> </td>
              <td ng-repeat="i in [0,1,2,3,4,5,6,7,8,9]">
                 <div class="form-group margin-bottom-0" ng-class="{'has-error' : isCorrectArray['10'+i] != undefined && isCorrectArray['10'+i] == false}">
-                  <input ng-disabled="isDisabled['c'+i]" class="form-control" type="text" ng-blur="columnValueChanged(i)" ng-model="columnAnswers[i]" size="4" />
+                  <input ng-disabled="!isStartButtonDisabled || isDisabled['r'+i]==undefined || isDisabled['c'+i]" class="form-control" type="text" ng-blur="columnValueChanged(i)" ng-model="columnAnswers[i]" size="4" />
               </div>
             </td>
           </tr>
