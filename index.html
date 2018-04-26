@@ -13,11 +13,10 @@
     <link rel="stylesheet" href="Vendor/ngDialog/css/ngDialog.min.css" />
     <link rel="stylesheet" href="Vendor/ngDialog/css/ngDialog-theme-default.min.css" />
     <script src="app.module.js"></script>
-    <script src="Modules/Addition/addition.module.js"></script>
-    <script src="Modules/Addition/addition.controller.js"></script>
+    <script src="app.controller.js"></script>
   </head>
 
-  <body ng-app="addition" ng-controller="additionCtrl">
+  <body ng-app="myApp" ng-controller="myCtrl">
 
     <div class="row">
 
@@ -96,7 +95,7 @@
 
     <!-- Result dialog -->
     <script type="text/ng-template" id="firstDialogId">
-        <div ng-app="myApp" ng-controller="additionCtrl">
+        <div ng-app="myApp" ng-controller="myCtrl">
           <h3 class="mt0 text-center horizontal-line">Result</h3>
           <p> Two numbers addition <code>{{ngDialogData.noOfCorrectAns_TwoNumbers}}/100</code></p>
           <p> Row Addition <code>{{ngDialogData.noOfCorrectAns_Row}}/10</code></p>

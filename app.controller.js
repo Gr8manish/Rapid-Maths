@@ -1,4 +1,4 @@
-angular.module("addition").controller("additionCtrl",function($rootScope,$scope,ngDialog){
+angular.module("myApp").controller("myCtrl",function($rootScope,$scope,ngDialog){
 
       $scope.startResumeButtonText = "Start";
 
@@ -158,7 +158,7 @@ angular.module("addition").controller("additionCtrl",function($rootScope,$scope,
 
       // Function to show result dialog
       $scope.onStopButtonClicked = function(){
-        ngDialog.open({ template: 'firstDialogId', controller: 'additionCtrl', data: {noOfCorrectAns_TwoNumbers: $scope.noOfCorrectAns_TwoNumbers,
+        ngDialog.open({ template: 'firstDialogId', controller: 'myCtrl', data: {noOfCorrectAns_TwoNumbers: $scope.noOfCorrectAns_TwoNumbers,
             noOfCorrectAns_Row: $scope.noOfCorrectAns_Row,
             noOfCorrectAns_Total: $scope.noOfCorrectAns_Total,
             noOfCorrectAns_Column: $scope.noOfCorrectAns_Column} });
