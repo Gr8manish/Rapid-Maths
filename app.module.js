@@ -1,1 +1,1 @@
-angular.module("myApp",["ngDialog"]);
+angular.module("myApp",["addition"]);
