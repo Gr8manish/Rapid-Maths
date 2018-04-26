@@ -170,6 +170,4 @@ angular.module("addition").controller("additionCtrl",function($rootScope,$scope,
         $scope.generateRandomValuesForRowAndColumns();
         ngDialog.closeAll();
       }
-
-
   });
