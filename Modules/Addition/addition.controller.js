@@ -21,6 +21,9 @@ angular.module("addition").controller("additionCtrl",function($rootScope,$scope,
       $scope.isPauseButtonDisabled = true;
       $scope.isStopButtonDisabled = true;
 
+      // Array containing value if row or column total field is disabled or not.
+      $scope.isDisabled = [];
+
       $scope.generateRandomValuesForRowAndColumns = function(){
         // Generating random values for row and column headers
         for(var l=0;l<10;l++){
@@ -39,8 +42,12 @@ angular.module("addition").controller("additionCtrl",function($rootScope,$scope,
       $scope.valueChanged = function(i,j){
 
             //Checking row and column totals when user change any value in the table
-            $scope.rowValueChanged(i);
-            $scope.columnValueChanged(j);
+            if($scope.isCorrectArray[i+"10"] != undefined)
+              $scope.rowValueChanged(i);
+
+            if($scope.isCorrectArray["10"+j] != undefined)
+              $scope.columnValueChanged(j);
+
 
             if($scope.values[i+""+j] == undefined){
                 return;
@@ -51,6 +58,19 @@ angular.module("addition").controller("additionCtrl",function($rootScope,$scope,
             }else{
                $scope.isCorrectArray[i+""+j] = false;
             }
+
+            var noOfFieldsInRowHavingValue = 0,noOfFieldsInColumnHavingValue = 0;
+            for(var l=0;l<10;l++){
+                  if($scope.isCorrectArray[i+""+l]){
+                      noOfFieldsInRowHavingValue++;
+                  }
+                  if($scope.isCorrectArray[l+""+j]){
+                      noOfFieldsInColumnHavingValue++;
+                  }
+            }
+
+            $scope.isDisabled["r"+i] = noOfFieldsInRowHavingValue==10 ? false : true;
+            $scope.isDisabled["c"+j] = noOfFieldsInColumnHavingValue==10 ? false : true;
       }
 
       // Called when user change value in Total row field.
@@ -147,7 +167,7 @@ angular.module("addition").controller("additionCtrl",function($rootScope,$scope,
             timer.stop();
 
             //Show result dialog
-            $scope.onStopButtonClicked();
+            $scope.showResultDialog();
         };
 
         timer.addEventListener('secondsUpdated', function (e) {
@@ -162,7 +182,7 @@ angular.module("addition").controller("additionCtrl",function($rootScope,$scope,
 
 
       // Function to show result dialog
-      $scope.onStopButtonClicked = function(){
+      $scope.showResultDialog = function(){
         ngDialog.open({ template: 'firstDialogId', controller: 'additionCtrl', data: {noOfCorrectAns_TwoNumbers: $scope.noOfCorrectAns_TwoNumbers,
             noOfCorrectAns_Row: $scope.noOfCorrectAns_Row,
             noOfCorrectAns_Total: $scope.noOfCorrectAns_Total,
